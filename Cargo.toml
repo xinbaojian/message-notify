@@ -1,0 +1,9 @@
+[package]
+name = "message-notify"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+reqwest = "0.12.8"
+rocket = { version = "0.5.1", features = ["json"] }
+serde = { version = "1.0.210", features = ["derive"] }
