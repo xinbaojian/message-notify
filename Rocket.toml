@@ -4,6 +4,11 @@ address = "0.0.0.0"
 ## Streaming read size limits.
 limits = { form = "1 MiB", json = "10 MiB" }
 
+## consul config
+consul_address = "http://192.168.0.14:8500"
+service_name = "rust-message-notify"
+ip_address = "192.168.0.27"
+
 ## set only when compiled in debug mode, i.e, `cargo build`
 [debug]
 port = 8001
@@ -18,3 +23,10 @@ port = 9001
 [release]
 port = 9999
 ip_header = false
+
+## consul config
+consul_address = "http://192.168.0.14:8500"
+service_name = "message-notify"
+instance_id = "rust-message-notify-9999"
+ip_address = "192.168.0.27"
+
