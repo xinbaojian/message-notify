@@ -17,6 +17,6 @@ async fn rocket() -> _ {
         log!(Level::Error, "Failed to register service: {}", err);
     }
     rocket
-        .register("/", catchers![catch::not_found])
+        .register("/", catchers![catch::not_found, catch::internal_error])
         .mount("/", routes![health::health, message::message_send])
 }
