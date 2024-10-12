@@ -26,7 +26,6 @@ ip_header = false
 
 ## consul config
 consul_address = "http://192.168.0.14:8500"
-service_name = "message-notify"
-instance_id = "rust-message-notify-9999"
+service_name = "rust-message-notify"
 ip_address = "192.168.0.27"
 

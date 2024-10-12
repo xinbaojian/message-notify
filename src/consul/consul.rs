@@ -1,3 +1,4 @@
+use rocket::log::private::{log, Level};
 use rocket::serde::{Deserialize, Serialize};
 
 #[derive(Deserialize, Debug)]
@@ -60,12 +61,10 @@ pub async fn register_service(config: &ConsulConfig) -> Result<(), reqwest::Erro
         .json(&service)
         .send()
         .await?;
-
     if res.status().is_success() {
-        println!("Service registered successfully");
+        log!(Level::Info, "Service registered successfully");
     } else {
-        println!("Failed to register service: {}", res.text().await?);
+        log!(Level::Error, "Failed to register service: {}", res.text().await?);
     }
-
     Ok(())
 }
