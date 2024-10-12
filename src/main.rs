@@ -1,6 +1,7 @@
 #[macro_use]
 extern crate rocket;
 mod api;
+mod common;
 mod consul;
 mod entity;
 mod utils;
