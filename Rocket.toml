@@ -8,6 +8,7 @@ limits = { form = "1 MiB", json = "10 MiB" }
 consul_address = "http://192.168.0.14:8500"
 service_name = "rust-message-notify"
 ip_address = "192.168.0.27"
+ip_port = "8001"
 
 ## set only when compiled in debug mode, i.e, `cargo build`
 [debug]
@@ -25,7 +26,12 @@ port = 9999
 ip_header = false
 
 ## consul config
+## 可使用环境变量[CONSUL_ADDRESS]配置
 consul_address = "http://192.168.0.14:8500"
+## 可使用环境变量[CONSUL_SERVICE_NAME]配置
 service_name = "rust-message-notify"
+## 可使用环境变量[CONSUL_IP_ADDRESS]配置, 访问服务的IP
 ip_address = "192.168.0.27"
+## 可使用环境变量[CONSUL_IP_PORT]配置，访问服务的端口
+ip_port = "8001"
 
