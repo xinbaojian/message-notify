@@ -9,7 +9,7 @@ pub struct ConsulConfig {
     consul_address: String,
     service_name: String,
     ip_address: String,
-    ip_port: u16,
+    ip_port: String,
 }
 #[derive(Serialize, Deserialize, Debug)]
 struct ServiceRegistration {
@@ -47,11 +47,11 @@ pub async fn register_service(config: &ConsulConfig) -> Result<(), reqwest::Erro
     let service_name =
         env::var("CONSUL_SERVICE_NAME").unwrap_or_else(|_| config.service_name.clone());
     let ip_address = env::var("CONSUL_IP_ADDRESS").unwrap_or_else(|_| config.ip_address.clone());
-    let ip_port = env::var("CONSUL_IP_PORT").unwrap_or_else(|_| config.ip_port.to_string());
+    let ip_port = env::var("CONSUL_IP_PORT").unwrap_or_else(|_| config.ip_port.clone());
     let client = reqwest::Client::new();
     let service = ServiceRegistration {
         id: format!("{}-{}", service_name, config.port),
-        name: address,
+        name: service_name,
         address: ip_address.clone(),
         port: config.port,
         check: ServiceCheck {
@@ -64,7 +64,7 @@ pub async fn register_service(config: &ConsulConfig) -> Result<(), reqwest::Erro
     let res = client
         .put(format!(
             "{}/v1/agent/service/register",
-            config.consul_address
+            address
         ))
         .json(&service)
         .send()
