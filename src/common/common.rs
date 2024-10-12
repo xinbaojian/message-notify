@@ -1,21 +1,32 @@
-use serde::{Deserialize, Serialize};
+use serde::{Deserialize, Serialize, Serializer};
 
 /// 通用返回结构体
 #[derive(Debug, Serialize, Deserialize)]
 pub struct Result<T> {
     pub data: T,
+    #[serde(serialize_with = "serialize_result_code")]
     pub code: ResultCode,
     pub success: bool,
 }
 
 /// 通用返回枚举
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug, Serialize, Deserialize, Copy, Clone)]
 pub enum ResultCode {
     Success = 200,
     // 400 状态吗
     BadRequest = 400,
     // 服务器内部错误
     InternalError = 500,
+}
+
+fn serialize_result_code<S>(
+    code: &ResultCode,
+    serializer: S,
+) -> std::result::Result<<S as Serializer>::Ok, <S as Serializer>::Error>
+where
+    S: Serializer,
+{
+    serializer.serialize_u16(*code as u16)
 }
 
 impl<T> Result<T> {
