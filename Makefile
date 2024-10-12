@@ -7,3 +7,7 @@ build:
 
 clean:
 	cargo clean
+
+push: build
+	docker tag message-notify:latest registry.cn-hangzhou.aliyuncs.com/hzcl2023/rust-message-notify:latest
+	docker push registry.cn-hangzhou.aliyuncs.com/hzcl2023/rust-message-notify:latest
